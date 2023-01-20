@@ -1,6 +1,6 @@
 # Qr-Code-Reader
 
-After download ZIP file run the below cmd
+After downloading ZIP file run the below cmd
 
 
 npm install react-scripts --save --legacy-peer-deps
