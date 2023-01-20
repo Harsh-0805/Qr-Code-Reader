@@ -6,51 +6,50 @@ import { useEffect } from "react";
 
 const App = () => {
   const [code, setCode] = useState(null);
-  const [showDialog, setDiaglog] = useState(false);
-  const [processing, setProcessing] = useState(false);
   const [precScan, setPrecScan] = useState("");
   const [selected, setSelected] = useState("environment");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [data,setData]=useState(null)
 
-  async function fetchData({ qr = "" }) {
-    try {
-      setProcessing(true);
-      const result = await axios.get(
-        `https://ucs-goma-backend.herokuapp.com/payement/scan?matricule=${qr}&forThisYear=1`
-      );
-      console.log("scanned code", qr);
-      const { message, payement } = result.data;
-      console.log(payement);
-      if (!message) {
-        setCode({
-          text: payement.matricule,
-          identite: `${payement.nom} ${payement.postnom} ${payement.prenom}`,
-          promotion: payement.auditoire,
-          annee: payement.annee,
-          frais: Number.parseFloat(payement.totalPayer),
-          total: Number.parseFloat(payement.totalAPayer),
-          recouvrement: "Premiere tranche",
-          maxEncours: 800
-        });
-        // setPrecScan(null);
-        setDiaglog(true);
-      } else {
-        setCode(null);
-        setPrecScan(null);
-        setErrorMessage(message);
-        setDiaglog(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function fetchData({ qr = "" }) {
+  //   try {
+  //     setProcessing(true);
+  //     const result = await axios.get(
+  //       `https://ucs-goma-backend.herokuapp.com/payement/scan?matricule=${qr}&forThisYear=1`
+  //     );
+  //     console.log("scanned code", qr);
+  //     const { message, payement } = result.data;
+  //     console.log(payement);
+  //     if (!message) {
+  //       setCode({
+  //         text: payement.matricule,
+  //         identite: `${payement.nom} ${payement.postnom} ${payement.prenom}`,
+  //         promotion: payement.auditoire,
+  //         annee: payement.annee,
+  //         frais: Number.parseFloat(payement.totalPayer),
+  //         total: Number.parseFloat(payement.totalAPayer),
+  //         recouvrement: "Premiere tranche",
+  //         maxEncours: 800
+  //       });
+  //       // setPrecScan(null);
+  //       setDiaglog(true);
+  //     } else {
+  //       setCode(null);
+  //       setPrecScan(null);
+  //       setErrorMessage(message);
+  //       setDiaglog(true);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const handleScan = async (scanData) => {
     console.log(`loaded data data`, scanData);
-    if (scanData && scanData !== "" && !showDialog && !processing) {
+    if (scanData && scanData !== "") {
       console.log(`loaded >>>`, scanData);
-      // setPrecScan(scanData);
-      await fetchData({ qr: scanData });
+      setData(scanData);
+      // await fetchData({ qr: scanData });
     }
   };
   const handleError = (err) => {
@@ -58,16 +57,16 @@ const App = () => {
   };
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
+      <h1>Scan</h1>
       <h2>
         Last Scan:{precScan}
         {selected}
       </h2>
-      <select onChange={(e) => setSelected(e.target.value)}>
+      <select onChange={(e) => setSelected(e.target.value)}  >
         <option value={"environment"}>Back Camera</option>
         <option value={"user"}>Front Camera</option>
       </select>
-      {showDialog && (
+      {/* {showDialog && (
         <div className="dialog">
           <div className="dialog-content">
             <div className="close">
@@ -154,18 +153,19 @@ const App = () => {
             )}
           </div>
         </div>
-      )}
+      )} */}
       {/* {code && <h2>{code.text}</h2>} */}
-      {!showDialog && !processing && (
+      
         <QrReader
           facingMode={selected}
           delay={500}
           onError={handleError}
           onScan={handleScan}
           // chooseDeviceId={()=>selected}
-          style={{ width: "200px", heigth: "100px" }}
+          style={{ width: "500px", heigth: "500px" }}
         />
-      )}
+      {JSON.stringify(data)}
+      
     </div>
   );
 };
