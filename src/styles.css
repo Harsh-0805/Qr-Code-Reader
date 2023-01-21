@@ -98,7 +98,7 @@
   margin: 0;
   height: 40px;
   border-bottom: 1px dashed;
-  animation:slidein 2s;
+  animation: slidein 2s;
 }
 .detail-first-child {
   border-top: 1px dashed;
@@ -135,7 +135,6 @@
   font-size: 0.9rem;
 }
 
-
 @keyframes slidein {
   from {
     margin-left: 100%;
@@ -148,8 +147,12 @@
   }
 }
 
-.errorMessage{
+.errorMessage {
   display: flex;
   align-content: center;
   align-items: center;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
