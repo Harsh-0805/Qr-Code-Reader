@@ -38,12 +38,11 @@ const QrScanner = () => {
                 // chooseDeviceId={()=>selected}
                 style={{ width: "500px", heigth: "500px", margin: "50px" }}
             />
-            <button onClick={()=>{
+            <button className='bg-white' onClick={()=>{
                 setData("")
             }}>Scan</button>
             <div>
-                {data}
-                {event}
+                {data}<h4 className='mt-2'>has entered the event</h4>{event}
             </div>
 
         </div>
