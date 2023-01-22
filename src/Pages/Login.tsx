@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
-import "../index.css";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AiOutlineMail, AiOutlineLogin } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { IconContext } from "react-icons/lib";
 
 export function Login() {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const defaultFormData = {
-    email: "",
-    pass: "",
+    email: "demo@gmail.com",
+    pass: "demo",
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +20,13 @@ export function Login() {
     setEmail(defaultFormData.email);
     setPass(defaultFormData.pass);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/qrscanner");
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <IconContext.Provider value={{ size: 35 }}>
       <div className="flex h-screen justify-center bg-slate-900">
@@ -38,7 +47,7 @@ export function Login() {
                 </label>
                 <input
                   className="border-2 max-h-10 max-w-50 border-black rounded-l-md rounded-r-lg p-2 mt-4"
-                  type="email"
+                  type="text"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   name="email"
@@ -82,3 +91,5 @@ export function Login() {
     </IconContext.Provider>
   );
 }
+
+export default Login;
