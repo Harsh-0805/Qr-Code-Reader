@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import QrReader from "react-qr-reader";
-import "../styles.css";
 const QrScanner = () => {
   const [code, setCode] = useState(null);
   const [precScan, setPrecScan] = useState("");

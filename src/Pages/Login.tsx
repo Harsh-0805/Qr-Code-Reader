@@ -8,17 +8,14 @@ import { IconContext } from "react-icons/lib";
 export function Login() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const defaultFormData = {
-    email: "demo@gmail.com",
-    pass: "demo",
-  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    setEmail(defaultFormData.email);
-    setPass(defaultFormData.pass);
+    // check if the user is logged in
+    if (username === "demo" && password === "demo") {
+      setIsLoggedIn(true);
+    }
   };
 
   useEffect(() => {
@@ -48,8 +45,8 @@ export function Login() {
                 <input
                   className="border-2 max-h-10 max-w-50 border-black rounded-l-md rounded-r-lg p-2 mt-4"
                   type="text"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
                   name="email"
                   id="email"
                   placeholder="Type your Email ID"
@@ -62,8 +59,8 @@ export function Login() {
                 <input
                   type="password"
                   className="border-2 max-h-10 max-w-50 mt-4 border-black rounded-l-md rounded-r-lg p-2"
-                  onChange={(e) => setPass(e.target.value)}
-                  value={pass}
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                   name="password"
                   id="password"
                   placeholder="*********"
